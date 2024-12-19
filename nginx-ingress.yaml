@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-ingress
+  namespace: develop
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: <your-domain>
+    http:
+      paths:
+      - pathType: Prefix
+        path: /api
+        backend:
+          service:
+            name: release-test
+            port:
+              number: 30001
+      - pathType: Prefix
+        path: /user
+        backend:
+          service:
+            name: release-test
+            port:
+              number: 30001
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: release-frontend
+            port:
+              number: 30002
